@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página QR Code</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem;
+      background: #222;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .menu button {
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      background: #444;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .menu button:hover {
+      background: #666;
+    }
+
+    .section {
+      display: none;
+      margin-top: 2rem;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    .card-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .info {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .driver, .car {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: #f5f5f5;
+    }
+
+    /* CORREÇÃO AQUI: Removido o estilo específico para .driver img */
+    .driver img, .car img {
+      width: 150px;
+      height: 150px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 3px solid #fff;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @media (max-width: 600px) {
+      .driver, .car {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .driver img, .car img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bem-vindo!</h1>
+    <p>Escolha uma das opções abaixo</p>
+  </header>
+
+  <div class="container">
+    <div class="menu">
+      <button onclick="mostrar('lugares')">📍 Lugares para visitar em São Paulo</button>
+      <button onclick="mostrar('carro')">🚗 Informações do carro e motorista</button>
+    </div>
+
+    <!-- Lugares -->
+    <div id="lugares" class="section">
+      <h2>Top 5 Lugares</h2>
+      <div class="card-list">
+        <div class="card"><h3>1. Parque do Ibirapuera</h3><p>Maior parque urbano de SP, com museus, lago e muito verde.</p></div>
+        <div class="card"><h3>2. Avenida Paulista</h3><p>Coração da cidade, cheia de cultura, compras e lazer.</p></div>
+        <div class="card"><h3>3. Mercado Municipal (Mercadão)</h3><p>Famoso pelo sanduíche de mortadela e frutas exóticas.</p></div>
+        <div class="card"><h3>4. Bairro da Liberdade</h3><p>Centro da cultura oriental, com lojas e gastronomia típica.</p></div>
+        <div class="card"><h3>5. Catedral da Sé</h3><p>Marco histórico e arquitetônico no centro da cidade.</p></div>
+      </div>
+
+      <h2 style="margin-top:2rem;">Top 5 Restaurantes</h2>
+      <div class="card-list">
+        <div class="card"><h3>1. A Casa do Porco</h3><p>Gastronomia brasileira criativa, renomado mundialmente.</p></div>
+        <div class="card"><h3>2. Bar da Dona Onça</h3><p>Comida brasileira com toque caseiro, na região central.</p></div>
+        <div class="card"><h3>3. La Braciera Pizza Napoletana</h3><p>Pizzaria de destaque, com receita napolitana.</p></div>
+        <div class="card"><h3>4. Selvagem (Parque do Ibirapuera)</h3><p>Culinária contemporânea em meio à natureza.</p></div>
+        <div class="card"><h3>5. Esther Rooftop</h3><p>Restaurante sofisticado com vista panorâmica do centro.</p></div>
+      </div>
+    </div>
+
+    <!-- Carro e Motorista -->
+    <div id="carro" class="section">
+      <h2>Informações do carro e motorista</h2>
+      <div class="info">
+        <h3>Carro</h3>
+        <div class="car">
+          <img src="carro.png" alt="Foto do carro">
+          <div>
+            <p><strong>Modelo:</strong> Chery Arrizo 6 pro</p>
+            <p><strong>Cor:</strong> Cinza chumbo</p>
+            <p><strong>Placa:</strong> GJF7C51</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">Motorista</h3>
+        <div class="driver">
+          <img src="fabio.jpeg" alt="Foto do motorista">
+          <div>
+            <p><strong>Nome:</strong> Fabio da Silva</p>
+            <p><strong>Telefone:</strong> (11) 96465-0645</p>
+            <p><em>Motorista experiente e atencioso, pronto para atendê-lo.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function mostrar(secao) {
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      document.getElementById(secao).style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
