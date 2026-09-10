@@ -1,264 +1,351 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SEU UBER</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    header {
-      text-align: center;
-      padding: 1.5rem;
-      background: #222;
-      color: #fff;
-    }
+    <title>Seu Uber - Transporte em São Paulo</title>
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    .menu {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .menu button {
-      padding: 1rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      background: #444;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .menu button:hover {
-      background: #666;
-    }
-
-    .section {
-      display: none;
-      margin-top: 2rem;
-      animation: fadeIn 0.4s ease-in;
-    }
-
-    .card-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .card {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .card h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1.1rem;
-    }
-
-    .info {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .driver, .car {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-top: 1rem;
-      padding: 1.5rem;
-      border-radius: 12px;
-      background: #f5f5f5;
-    }
-
-    /* CORREÇÃO AQUI: Removido o estilo específico para .driver img */
-    .driver img, .car img {
-      width: 150px;
-      height: 150px;
-      border-radius: 12px;
-      object-fit: cover;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      border: 3px solid #fff;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    @media (max-width: 600px) {
-      .driver, .car {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .driver img, .car img {
-        width: 120px;
-        height: 120px;
-      }
-    }
-  </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header>
-    <h1>Bem-vindo!</h1>
-    <p>Escolha uma das opções abaixo</p>
-  </header>
 
-  <div class="container">
-    <div class="menu">
-      <button onclick="mostrar('lugares')">📍 Lugares para visitar em São Paulo</button>
-      <button onclick="mostrar('carro')">🚗 Informações do carro e motorista</button>
-    </div>
+    <!-- CABEÇALHO -->
+    <header class="hero">
 
-    <!-- Lugares -->
-    <div id="lugares" class="section">
-     <h2>Top 5 Lugares</h2>
-<div class="card-list">
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Parque+do+Ibirapuera+São+Paulo" target="_blank">
-        1. Parque do Ibirapuera
-      </a>
-    </h3>
-    <p>Maior parque urbano de SP, com museus, lago e muito verde.</p>
-  </div>
+        <div class="hero-content">
 
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Avenida+Paulista+São+Paulo" target="_blank">
-        2. Avenida Paulista
-      </a>
-    </h3>
-    <p>Coração da cidade, cheia de cultura, compras e lazer.</p>
-  </div>
+            <h1>SEU UBER</h1>
 
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Mercado+Municipal+de+São+Paulo" target="_blank">
-        3. Mercado Municipal (Mercadão)
-      </a>
-    </h3>
-    <p>Famoso pelo sanduíche de mortadela e frutas exóticas.</p>
-  </div>
+            <p>
+                Transporte seguro, confortável e personalizado
+                em São Paulo.
+            </p>
 
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Bairro+da+Liberdade+São+Paulo" target="_blank">
-        4. Bairro da Liberdade
-      </a>
-    </h3>
-    <p>Centro da cultura oriental, com lojas e gastronomia típica.</p>
-  </div>
+            <div class="hero-buttons">
 
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Catedral+da+Sé+São+Paulo" target="_blank">
-        5. Catedral da Sé
-      </a>
-    </h3>
-    <p>Marco histórico e arquitetônico no centro da cidade.</p>
-  </div>
-</div>
+                <a href="tel:+5511964650645" class="btn principal">
+                    📞 Ligar agora
+                </a>
 
-<h2 style="margin-top:2rem;">Top 5 Restaurantes</h2>
-<div class="card-list">
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=A+Casa+do+Porco+São+Paulo" target="_blank">
-        1. A Casa do Porco
-      </a>
-    </h3>
-    <p>Gastronomia brasileira criativa, renomado mundialmente.</p>
-  </div>
+                <a href="https://wa.me/5511964650645"
+                   target="_blank"
+                   class="btn whatsapp">
+                    💬 WhatsApp
+                </a>
 
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Bar+da+Dona+Onça+São+Paulo" target="_blank">
-        2. Bar da Dona Onça
-      </a>
-    </h3>
-    <p>Comida brasileira com toque caseiro, na região central.</p>
-  </div>
+            </div>
 
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=La+Braciera+Pizza+Napoletana+São+Paulo" target="_blank">
-        3. La Braciera Pizza Napoletana
-      </a>
-    </h3>
-    <p>Pizzaria de destaque, com receita napolitana.</p>
-  </div>
-
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Selvagem+Parque+do+Ibirapuera+São+Paulo" target="_blank">
-        4. Selvagem (Parque do Ibirapuera)
-      </a>
-    </h3>
-    <p>Culinária contemporânea em meio à natureza.</p>
-  </div>
-
-  <div class="card">
-    <h3>
-      <a href="https://maps.google.com/?q=Esther+Rooftop+São+Paulo" target="_blank">
-        5. Esther Rooftop
-      </a>
-    </h3>
-    <p>Restaurante sofisticado com vista panorâmica do centro.</p>
-  </div>
-</div>
-</div>
-    <!-- Carro e Motorista -->
-    <div id="carro" class="section">
-      <h2>Informações do carro e motorista</h2>
-      <div class="info">
-        <h3>Carro</h3>
-        <div class="car">
-          <img src="carro.png" alt="Foto do carro">
-          <div>
-            <p><strong>Modelo:</strong> Chery Arrizo 6 pro</p>
-            <p><strong>Cor:</strong> Cinza chumbo</p>
-            <p><strong>Placa:</strong> GJF7C51</p>
-          </div>
         </div>
 
-        <h3 style="margin-top:1.5rem;">Motorista</h3>
-        <div class="driver">
-          <img src="fabio.jpeg" alt="Foto do motorista">
-          <div>
-            <p><strong>Nome:</strong> Fabio da Silva</p>
-            <p><strong>Telefone:</strong> (11) 96465-0645</p>
-            <p><em>Motorista experiente e atencioso, pronto para atendê-lo.</em></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </header>
 
-  <script>
-    function mostrar(secao) {
-      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-      document.getElementById(secao).style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  </script>
+
+    <!-- MENU -->
+    <nav class="menu">
+
+        <a href="#lugares">
+            📍 Lugares
+        </a>
+
+        <a href="#restaurantes">
+            🍽️ Restaurantes
+        </a>
+
+        <a href="#carro">
+            🚗 Carro
+        </a>
+
+        <a href="#motorista">
+            👨‍✈️ Motorista
+        </a>
+
+    </nav>
+
+
+    <!-- APRESENTAÇÃO -->
+    <section class="sobre">
+
+        <h2>Seu transporte em São Paulo</h2>
+
+        <p>
+            Viaje com conforto, segurança e tranquilidade.
+            Conheça São Paulo sem se preocupar com o trânsito
+            ou estacionamento.
+        </p>
+
+        <a href="tel:+5511964650645" class="cta">
+            📞 Entre em contato
+        </a>
+
+    </section>
+
+
+    <!-- LUGARES -->
+    <section id="lugares" class="section">
+
+        <h2>📍 Lugares para visitar</h2>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>Parque do Ibirapuera</h3>
+
+                <p>
+                    Um dos principais pontos turísticos de São Paulo,
+                    com muito verde, cultura e lazer.
+                </p>
+
+                <a href="https://maps.google.com/?q=Parque+do+Ibirapuera+São+Paulo"
+                   target="_blank">
+                    Ver no Maps →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Avenida Paulista</h3>
+
+                <p>
+                    Um dos lugares mais famosos da cidade,
+                    com cultura, restaurantes e comércio.
+                </p>
+
+                <a href="https://maps.google.com/?q=Avenida+Paulista+São+Paulo"
+                   target="_blank">
+                    Ver no Maps →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Mercadão de São Paulo</h3>
+
+                <p>
+                    Conheça um dos mercados mais tradicionais
+                    da cidade.
+                </p>
+
+                <a href="https://maps.google.com/?q=Mercado+Municipal+de+São+Paulo"
+                   target="_blank">
+                    Ver no Maps →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Liberdade</h3>
+
+                <p>
+                    Região conhecida pela cultura oriental,
+                    gastronomia e comércio.
+                </p>
+
+                <a href="https://maps.google.com/?q=Bairro+da+Liberdade+São+Paulo"
+                   target="_blank">
+                    Ver no Maps →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESTAURANTES -->
+    <section id="restaurantes" class="section">
+
+        <h2>🍽️ Restaurantes</h2>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>A Casa do Porco</h3>
+
+                <p>
+                    Restaurante brasileiro conhecido pela
+                    gastronomia criativa.
+                </p>
+
+                <a href="https://maps.google.com/?q=A+Casa+do+Porco+São+Paulo"
+                   target="_blank">
+                    Ver localização →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Bar da Dona Onça</h3>
+
+                <p>
+                    Gastronomia brasileira em um ambiente
+                    tradicional e descontraído.
+                </p>
+
+                <a href="https://maps.google.com/?q=Bar+da+Dona+Onça+São+Paulo"
+                   target="_blank">
+                    Ver localização →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>La Braciera</h3>
+
+                <p>
+                    Pizza napolitana e uma ótima opção
+                    para quem gosta de gastronomia italiana.
+                </p>
+
+                <a href="https://maps.google.com/?q=La+Braciera+São+Paulo"
+                   target="_blank">
+                    Ver localização →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CARRO -->
+    <section id="carro" class="section">
+
+        <h2>🚗 Nosso carro</h2>
+
+        <div class="vehicle">
+
+            <img src="carro.png" alt="Chery Arrizo 6 Pro">
+
+            <div>
+
+                <h3>Chery Arrizo 6 Pro</h3>
+
+                <p>
+                    <strong>Cor:</strong> Cinza chumbo
+                </p>
+
+                <p>
+                    <strong>Placa:</strong> GJF7C51
+                </p>
+
+                <p>
+                    Veículo confortável e preparado
+                    para oferecer uma ótima experiência.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MOTORISTA -->
+    <section id="motorista" class="section">
+
+        <h2>👨‍✈️ Seu motorista</h2>
+
+        <div class="vehicle">
+
+            <img src="fabio.jpeg" alt="Motorista">
+
+            <div>
+
+                <h3>Fabio da Silva</h3>
+
+                <p>
+                    Motorista experiente e atencioso,
+                    pronto para atender você.
+                </p>
+
+                <!-- TELEFONE CLICÁVEL -->
+                <a href="tel:+5511964650645"
+                   class="telefone">
+
+                    📞 (11) 96465-0645
+
+                </a>
+
+                <br><br>
+
+                <!-- WHATSAPP -->
+                <a href="https://wa.me/5511964650645"
+                   target="_blank"
+                   class="whatsapp-link">
+
+                    💬 Falar pelo WhatsApp
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA FINAL -->
+    <section class="final">
+
+        <h2>Precisa de uma corrida?</h2>
+
+        <p>
+            Entre em contato agora e faça sua reserva.
+        </p>
+
+        <div>
+
+            <a href="tel:+5511964650645"
+               class="btn principal">
+
+                📞 Ligar
+
+            </a>
+
+            <a href="https://wa.me/5511964650645"
+               target="_blank"
+               class="btn whatsapp">
+
+                💬 WhatsApp
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+
+        <p>
+            © 2026 Seu Uber
+        </p>
+
+        <p>
+            Transporte com conforto e segurança.
+        </p>
+
+    </footer>
+
+
 </body>
 
 </html>
