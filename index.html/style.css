@@ -1,0 +1,575 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    background: #0d0d0d;
+
+    color: #fff;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+
+    min-height: 500px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.8)
+        ),
+        url("imagens/sao-paulo-1.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    animation: zoom 10s infinite alternate;
+}
+
+
+.hero-content {
+
+    padding: 20px;
+
+    animation: aparecer 1s ease;
+}
+
+
+.hero h1 {
+
+    font-size: 4rem;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 30px #00aaff;
+}
+
+
+.hero p {
+
+    font-size: 1.2rem;
+
+    max-width: 600px;
+
+    margin: auto auto 25px;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.btn {
+
+    display: inline-block;
+
+    padding: 14px 25px;
+
+    margin: 5px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+.principal {
+
+    background: #fff;
+
+    color: #111;
+}
+
+
+.whatsapp {
+
+    background: #25d366;
+
+    color: #fff;
+}
+
+
+.btn:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 20px rgba(255,255,255,0.2);
+
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 10;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    background: rgba(15,15,15,0.95);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.menu a {
+
+    color: #fff;
+
+    text-decoration: none;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+}
+
+
+.menu a:hover {
+
+    background: #333;
+
+}
+
+
+/* =========================
+   SOBRE
+========================= */
+
+.sobre {
+
+    text-align: center;
+
+    padding: 70px 20px;
+
+    max-width: 800px;
+
+    margin: auto;
+}
+
+
+.sobre h2 {
+
+    font-size: 2rem;
+
+    margin-bottom: 15px;
+}
+
+
+.sobre p {
+
+    color: #ccc;
+
+    margin-bottom: 25px;
+}
+
+
+.cta {
+
+    display: inline-block;
+
+    padding: 13px 25px;
+
+    background: #fff;
+
+    color: #111;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   SEÇÕES
+========================= */
+
+.section {
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 60px 20px;
+}
+
+
+.section h2 {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+    font-size: 2rem;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+}
+
+
+.card {
+
+    background: #181818;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    border: 1px solid #333;
+
+    transition: 0.3s;
+
+    opacity: 0;
+
+    animation: subir 0.8s forwards;
+}
+
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: #fff;
+
+    box-shadow:
+        0 10px 30px rgba(255,255,255,0.08);
+}
+
+
+.card h3 {
+
+    margin-bottom: 10px;
+}
+
+
+.card p {
+
+    color: #bbb;
+
+    margin-bottom: 15px;
+}
+
+
+.card a {
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+.card a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================
+   CARRO / MOTORISTA
+========================= */
+
+.vehicle {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    background: #181818;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    border: 1px solid #333;
+}
+
+
+.vehicle img {
+
+    width: 200px;
+
+    height: 200px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+}
+
+
+.vehicle p {
+
+    color: #bbb;
+
+    margin: 8px 0;
+}
+
+
+.telefone {
+
+    display: inline-block;
+
+    color: #fff;
+
+    font-size: 1.2rem;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    margin-top: 10px;
+}
+
+
+.whatsapp-link {
+
+    color: #25d366;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+/* =========================
+   CTA FINAL
+========================= */
+
+.final {
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111,
+            #222
+        );
+}
+
+
+.final h2 {
+
+    font-size: 2.5rem;
+
+    margin-bottom: 10px;
+}
+
+
+.final p {
+
+    color: #bbb;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    text-align: center;
+
+    padding: 30px;
+
+    background: #050505;
+
+    color: #888;
+
+}
+
+
+/* =========================
+   ANIMAÇÕES
+========================= */
+
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+@keyframes subir {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+@keyframes zoom {
+
+    from {
+
+        background-size: 100%;
+
+    }
+
+    to {
+
+        background-size: 110%;
+
+    }
+
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+    .hero {
+
+        min-height: 450px;
+    }
+
+
+    .hero h1 {
+
+        font-size: 2.5rem;
+
+    }
+
+
+    .menu {
+
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+    }
+
+
+    .menu a {
+
+        white-space: nowrap;
+
+    }
+
+
+    .vehicle {
+
+        flex-direction: column;
+
+        text-align: center;
+
+    }
+
+
+    .vehicle img {
+
+        width: 160px;
+
+        height: 160px;
+
+    }
+
+
+    .final h2 {
+
+        font-size: 2rem;
+
+    }
+
+}
