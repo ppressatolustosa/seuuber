@@ -2,17 +2,25 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Seu Uber - Transporte em São Paulo</title>
+    <title>Seu Uber</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- CABEÇALHO -->
+
+    <!-- =========================
+         CAPA DO SITE
+    ========================== -->
+
     <header class="hero">
 
         <div class="hero-content">
@@ -20,19 +28,24 @@
             <h1>SEU UBER</h1>
 
             <p>
-                Transporte seguro, confortável e personalizado
-                em São Paulo.
+                Transporte seguro, confortável e personalizado.
             </p>
 
             <div class="hero-buttons">
 
-                <a href="tel:+5511964650645" class="btn principal">
+                <a
+                    href="tel:+5511964650645"
+                    class="btn btn-ligar"
+                >
                     📞 Ligar agora
                 </a>
 
-                <a href="https://wa.me/5511964650645"
-                   target="_blank"
-                   class="btn whatsapp">
+
+                <a
+                    href="https://wa.me/5511964650645"
+                    target="_blank"
+                    class="btn btn-whatsapp"
+                >
                     💬 WhatsApp
                 </a>
 
@@ -43,15 +56,19 @@
     </header>
 
 
-    <!-- MENU -->
+
+    <!-- =========================
+         MENU
+    ========================== -->
+
     <nav class="menu">
+
+        <a href="#orcamento">
+            💰 Orçamento
+        </a>
 
         <a href="#lugares">
             📍 Lugares
-        </a>
-
-        <a href="#restaurantes">
-            🍽️ Restaurantes
         </a>
 
         <a href="#carro">
@@ -65,46 +82,261 @@
     </nav>
 
 
-    <!-- APRESENTAÇÃO -->
+
+    <!-- =========================
+         APRESENTAÇÃO
+    ========================== -->
+
     <section class="sobre">
 
         <h2>Seu transporte em São Paulo</h2>
 
         <p>
             Viaje com conforto, segurança e tranquilidade.
-            Conheça São Paulo sem se preocupar com o trânsito
-            ou estacionamento.
+            Consulte uma estimativa para sua viagem e entre
+            em contato para confirmar sua corrida.
         </p>
-
-        <a href="tel:+5511964650645" class="cta">
-            📞 Entre em contato
-        </a>
 
     </section>
 
 
-    <!-- LUGARES -->
-    <section id="lugares" class="section">
+
+    <!-- =========================
+         ORÇAMENTO
+    ========================== -->
+
+    <section
+        class="orcamento"
+        id="orcamento"
+    >
+
+        <h2>💰 Calcule seu orçamento</h2>
+
+        <p class="subtitulo">
+
+            Preencha os dados abaixo para receber
+            uma estimativa do valor da viagem.
+
+        </p>
+
+
+        <div class="formulario">
+
+
+            <!-- ORIGEM -->
+
+            <div class="campo">
+
+                <label for="origem">
+                    📍 Endereço de saída
+                </label>
+
+                <input
+                    type="text"
+                    id="origem"
+                    placeholder="Rua, número e bairro"
+                >
+
+            </div>
+
+
+
+            <!-- DESTINO -->
+
+            <div class="campo">
+
+                <label for="destino">
+                    🏁 Endereço de destino
+                </label>
+
+                <input
+                    type="text"
+                    id="destino"
+                    placeholder="Rua, número e bairro"
+                >
+
+            </div>
+
+
+
+            <!-- DISTÂNCIA -->
+
+            <div class="campo">
+
+                <label for="distancia">
+                    📏 Distância aproximada
+                </label>
+
+                <div class="input-km">
+
+                    <input
+                        type="number"
+                        id="distancia"
+                        placeholder="Ex: 80"
+                        min="1"
+                    >
+
+                    <span>km</span>
+
+                </div>
+
+                <small>
+                    Consulte a distância pelo Google Maps
+                    e informe aqui.
+                </small>
+
+            </div>
+
+
+
+            <!-- DATA -->
+
+            <div class="campo">
+
+                <label for="data">
+                    📅 Data da viagem
+                </label>
+
+                <input
+                    type="date"
+                    id="data"
+                >
+
+            </div>
+
+
+
+            <!-- FIM DE SEMANA -->
+
+            <div class="campo">
+
+                <label for="fimSemana">
+                    🗓️ É fim de semana?
+                </label>
+
+                <select id="fimSemana">
+
+                    <option value="nao">
+                        Não
+                    </option>
+
+                    <option value="sim">
+                        Sim
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- RETORNO -->
+
+            <div class="campo">
+
+                <label for="retorno">
+                    🔄 Vai precisar de retorno?
+                </label>
+
+                <select id="retorno">
+
+                    <option value="nao">
+                        Não
+                    </option>
+
+                    <option value="sim">
+                        Sim
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- PASSAGEIROS -->
+
+            <div class="campo">
+
+                <label for="passageiros">
+                    👥 Passageiros
+                </label>
+
+                <input
+                    type="number"
+                    id="passageiros"
+                    min="1"
+                    max="6"
+                    value="1"
+                >
+
+            </div>
+
+
+
+            <!-- BOTÃO -->
+
+            <button
+                type="button"
+                class="btn-calcular"
+                onclick="calcularOrcamento()"
+            >
+
+                💰 Calcular orçamento
+
+            </button>
+
+
+
+            <!-- RESULTADO -->
+
+            <div
+                id="resultado"
+                class="resultado"
+            >
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         LUGARES
+    ========================== -->
+
+    <section
+        class="section"
+        id="lugares"
+    >
 
         <h2>📍 Lugares para visitar</h2>
 
+
         <div class="cards">
+
 
             <div class="card">
 
                 <h3>Parque do Ibirapuera</h3>
 
                 <p>
-                    Um dos principais pontos turísticos de São Paulo,
-                    com muito verde, cultura e lazer.
+                    Um dos principais pontos turísticos
+                    de São Paulo.
                 </p>
 
-                <a href="https://maps.google.com/?q=Parque+do+Ibirapuera+São+Paulo"
-                   target="_blank">
+                <a
+                    href="https://maps.google.com/?q=Parque+do+Ibirapuera+São+Paulo"
+                    target="_blank"
+                >
                     Ver no Maps →
                 </a>
 
             </div>
+
 
 
             <div class="card">
@@ -112,16 +344,19 @@
                 <h3>Avenida Paulista</h3>
 
                 <p>
-                    Um dos lugares mais famosos da cidade,
-                    com cultura, restaurantes e comércio.
+                    Cultura, restaurantes, comércio
+                    e lazer.
                 </p>
 
-                <a href="https://maps.google.com/?q=Avenida+Paulista+São+Paulo"
-                   target="_blank">
+                <a
+                    href="https://maps.google.com/?q=Avenida+Paulista+São+Paulo"
+                    target="_blank"
+                >
                     Ver no Maps →
                 </a>
 
             </div>
+
 
 
             <div class="card">
@@ -129,16 +364,19 @@
                 <h3>Mercadão de São Paulo</h3>
 
                 <p>
-                    Conheça um dos mercados mais tradicionais
+                    Um dos mercados mais tradicionais
                     da cidade.
                 </p>
 
-                <a href="https://maps.google.com/?q=Mercado+Municipal+de+São+Paulo"
-                   target="_blank">
+                <a
+                    href="https://maps.google.com/?q=Mercado+Municipal+de+São+Paulo"
+                    target="_blank"
+                >
                     Ver no Maps →
                 </a>
 
             </div>
+
 
 
             <div class="card">
@@ -146,103 +384,58 @@
                 <h3>Liberdade</h3>
 
                 <p>
-                    Região conhecida pela cultura oriental,
-                    gastronomia e comércio.
+                    Cultura oriental, gastronomia
+                    e comércio.
                 </p>
 
-                <a href="https://maps.google.com/?q=Bairro+da+Liberdade+São+Paulo"
-                   target="_blank">
+                <a
+                    href="https://maps.google.com/?q=Bairro+da+Liberdade+São+Paulo"
+                    target="_blank"
+                >
                     Ver no Maps →
                 </a>
 
             </div>
 
-        </div>
-
-    </section>
-
-
-    <!-- RESTAURANTES -->
-    <section id="restaurantes" class="section">
-
-        <h2>🍽️ Restaurantes</h2>
-
-        <div class="cards">
-
-            <div class="card">
-
-                <h3>A Casa do Porco</h3>
-
-                <p>
-                    Restaurante brasileiro conhecido pela
-                    gastronomia criativa.
-                </p>
-
-                <a href="https://maps.google.com/?q=A+Casa+do+Porco+São+Paulo"
-                   target="_blank">
-                    Ver localização →
-                </a>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>Bar da Dona Onça</h3>
-
-                <p>
-                    Gastronomia brasileira em um ambiente
-                    tradicional e descontraído.
-                </p>
-
-                <a href="https://maps.google.com/?q=Bar+da+Dona+Onça+São+Paulo"
-                   target="_blank">
-                    Ver localização →
-                </a>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>La Braciera</h3>
-
-                <p>
-                    Pizza napolitana e uma ótima opção
-                    para quem gosta de gastronomia italiana.
-                </p>
-
-                <a href="https://maps.google.com/?q=La+Braciera+São+Paulo"
-                   target="_blank">
-                    Ver localização →
-                </a>
-
-            </div>
 
         </div>
 
     </section>
 
 
-    <!-- CARRO -->
-    <section id="carro" class="section">
+
+    <!-- =========================
+         CARRO
+    ========================== -->
+
+    <section
+        class="section"
+        id="carro"
+    >
 
         <h2>🚗 Nosso carro</h2>
 
+
         <div class="vehicle">
 
-            <img src="carro.png" alt="Chery Arrizo 6 Pro">
+            <img
+                src="carro.png"
+                alt="Chery Arrizo 6 Pro"
+            >
+
 
             <div>
 
                 <h3>Chery Arrizo 6 Pro</h3>
 
                 <p>
-                    <strong>Cor:</strong> Cinza chumbo
+                    <strong>Cor:</strong>
+                    Cinza chumbo
                 </p>
 
                 <p>
-                    <strong>Placa:</strong> GJF7C51
+                    <strong>Placa:</strong>
+                    GJF7C51
                 </p>
 
                 <p>
@@ -257,14 +450,26 @@
     </section>
 
 
-    <!-- MOTORISTA -->
-    <section id="motorista" class="section">
+
+    <!-- =========================
+         MOTORISTA
+    ========================== -->
+
+    <section
+        class="section"
+        id="motorista"
+    >
 
         <h2>👨‍✈️ Seu motorista</h2>
 
+
         <div class="vehicle">
 
-            <img src="fabio.jpeg" alt="Motorista">
+            <img
+                src="fabio.jpeg"
+                alt="Motorista"
+            >
+
 
             <div>
 
@@ -275,20 +480,25 @@
                     pronto para atender você.
                 </p>
 
-                <!-- TELEFONE CLICÁVEL -->
-                <a href="tel:+5511964650645"
-                   class="telefone">
+
+                <a
+                    href="tel:+5511964650645"
+                    class="telefone"
+                >
 
                     📞 (11) 96465-0645
 
                 </a>
 
+
                 <br><br>
 
-                <!-- WHATSAPP -->
-                <a href="https://wa.me/5511964650645"
-                   target="_blank"
-                   class="whatsapp-link">
+
+                <a
+                    href="https://wa.me/5511964650645"
+                    target="_blank"
+                    class="whatsapp-link"
+                >
 
                     💬 Falar pelo WhatsApp
 
@@ -301,38 +511,48 @@
     </section>
 
 
-    <!-- CTA FINAL -->
+
+    <!-- =========================
+         CHAMADA FINAL
+    ========================== -->
+
     <section class="final">
 
         <h2>Precisa de uma corrida?</h2>
 
         <p>
-            Entre em contato agora e faça sua reserva.
+            Consulte seu orçamento e fale conosco.
         </p>
 
-        <div>
 
-            <a href="tel:+5511964650645"
-               class="btn principal">
+        <a
+            href="#orcamento"
+            class="btn btn-ligar"
+        >
 
-                📞 Ligar
+            💰 Calcular orçamento
 
-            </a>
+        </a>
 
-            <a href="https://wa.me/5511964650645"
-               target="_blank"
-               class="btn whatsapp">
 
-                💬 WhatsApp
+        <a
+            href="https://wa.me/5511964650645"
+            target="_blank"
+            class="btn btn-whatsapp"
+        >
 
-            </a>
+            💬 WhatsApp
 
-        </div>
+        </a>
 
     </section>
 
 
-    <!-- RODAPÉ -->
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
     <footer>
 
         <p>
@@ -346,10 +566,14 @@
     </footer>
 
 
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>
-
 
 
 
