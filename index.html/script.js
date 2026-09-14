@@ -1,251 +1,512 @@
-function calcularOrcamento() {
+// ==========================================
+// CONFIGURAÇÃO
+// ==========================================
 
-    // Pega os dados preenchidos pelo cliente
-
-    const origem =
-        document.getElementById("origem").value;
-
-    const destino =
-        document.getElementById("destino").value;
-
-    const distancia =
-        Number(document.getElementById("distancia").value);
-
-    const retorno =
-        document.getElementById("retorno").value;
-
-    const fimSemana =
-        document.getElementById("fimSemana").value;
-
-    const passageiros =
-        Number(document.getElementById("passageiros").value);
+const API_URL =
+  "https://seu-uber-api.ppressatolustosa.workers.dev";
 
 
-    // Verifica os campos obrigatórios
+// ==========================================
+// CALCULAR ORÇAMENTO
+// ==========================================
 
-    if (!origem || !destino) {
+async function calcularOrcamento() {
 
-        alert(
-            "Informe o endereço de saída e o endereço de destino."
-        );
+  const origem =
+    document
+      .getElementById("origem")
+      .value
+      .trim();
 
-        return;
+  const destino =
+    document
+      .getElementById("destino")
+      .value
+      .trim();
+
+  const passageiros =
+    Number(
+      document
+        .getElementById("passageiros")
+        .value
+    );
+
+  const fimSemana =
+    document
+      .getElementById("fimSemana")
+      .value;
+
+  const retorno =
+    document
+      .getElementById("retorno")
+      .value;
+
+  const resultado =
+    document.getElementById("resultado");
+
+
+  // ========================================
+  // VALIDAÇÕES
+  // ========================================
+
+  if (!origem) {
+
+    alert(
+      "Digite o destino inicial."
+    );
+
+    return;
+  }
+
+
+  if (!destino) {
+
+    alert(
+      "Digite o destino final."
+    );
+
+    return;
+  }
+
+
+  if (
+    !passageiros ||
+    passageiros < 1 ||
+    passageiros > 6
+  ) {
+
+    alert(
+      "Informe entre 1 e 6 passageiros."
+    );
+
+    return;
+  }
+
+
+  // ========================================
+  // MOSTRAR CARREGANDO
+  // ========================================
+
+  resultado.style.display = "block";
+
+  resultado.innerHTML = `
+    <h3>🔄 Calculando...</h3>
+
+    <p>
+      Estamos calculando a distância
+      entre os endereços.
+    </p>
+  `;
+
+
+  try {
+
+    // ======================================
+    // ENVIAR PARA CLOUDFLARE
+    // ======================================
+
+    const resposta =
+      await fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify({
+
+          origem: origem,
+
+          destino: destino
+
+        })
+
+      });
+
+
+    const dados =
+      await resposta.json();
+
+
+    // ======================================
+    // VERIFICAR ERRO
+    // ======================================
+
+    if (
+      !resposta.ok ||
+      !dados.sucesso
+    ) {
+
+      throw new Error(
+        dados.erro ||
+        "Erro ao calcular rota."
+      );
+
     }
 
 
-    if (!distancia || distancia <= 0) {
+    // ======================================
+    // DISTÂNCIA
+    // ======================================
 
-        alert(
-            "Informe uma distância válida."
-        );
-
-        return;
-    }
-
-
-    // =========================
-    // CALCULA DISTÂNCIA
-    // =========================
-
-    let distanciaTotal = distancia;
+    let distancia =
+      Number(
+        dados.distanciaKm
+      );
 
 
-    // Se precisar voltar,
-    // dobra a distância
+    // ======================================
+    // RETORNO
+    // ======================================
 
     if (retorno === "sim") {
 
-        distanciaTotal = distancia * 2;
+      distancia =
+        distancia * 2;
 
     }
 
 
-    // =========================
-    // VALOR POR KM
-    // =========================
+    // ======================================
+    // PREÇO POR KM
+    // ======================================
 
-    let valorPorKm;
+    const precoKm =
+      calcularPrecoKm(
+        distancia
+      );
 
 
-    if (distanciaTotal <= 10) {
+    // ======================================
+    // VALOR BASE
+    // ======================================
 
-        valorPorKm = 3.50;
+    let valor =
+      distancia * precoKm;
 
-    }
 
-    else if (distanciaTotal <= 20) {
+    // ======================================
+    // VALOR MÍNIMO
+    // ======================================
 
-        valorPorKm = 3.30;
+    if (valor < 35) {
 
-    }
-
-    else if (distanciaTotal <= 40) {
-
-        valorPorKm = 3.10;
-
-    }
-
-    else if (distanciaTotal <= 60) {
-
-        valorPorKm = 2.90;
-
-    }
-
-    else if (distanciaTotal <= 100) {
-
-        valorPorKm = 2.70;
-
-    }
-
-    else if (distanciaTotal <= 150) {
-
-        valorPorKm = 2.60;
-
-    }
-
-    else if (distanciaTotal <= 200) {
-
-        valorPorKm = 2.50;
-
-    }
-
-    else {
-
-        valorPorKm = 2.40;
+      valor = 35;
 
     }
 
 
-    // =========================
-    // CALCULA VALOR
-    // =========================
+    // ======================================
+    // FIM DE SEMANA
+    // ======================================
 
-    let valor = distanciaTotal * valorPorKm;
+    if (fimSemana === "sim") {
 
+      valor =
+        valor * 1.10;
 
-    // =========================
-    // FORMATA DINHEIRO
-    // =========================
-
-    const valorFormatado =
-        valor.toLocaleString(
-            "pt-BR",
-            {
-                style: "currency",
-                currency: "BRL"
-            }
-        );
+    }
 
 
-    // =========================
-    // MOSTRA RESULTADO
-    // =========================
+    // ======================================
+    // ARREDONDAMENTO
+    // ======================================
 
-    const resultado =
-        document.getElementById("resultado");
+    valor =
+      Math.ceil(valor);
 
+
+    // ======================================
+    // MOSTRAR RESULTADO
+    // ======================================
 
     resultado.innerHTML = `
 
-        <h3>
-            💰 Orçamento estimado
-        </h3>
+      <h3>
+        📋 Orçamento estimado
+      </h3>
 
-        <div class="valor-final">
+      <p>
+        <strong>📍 Origem:</strong><br>
+        ${escaparHTML(origem)}
+      </p>
 
-            ${valorFormatado}
+      <p>
+        <strong>🏁 Destino:</strong><br>
+        ${escaparHTML(destino)}
+      </p>
 
-        </div>
+      <p>
+        <strong>📏 Distância:</strong>
+        ${distancia.toFixed(1)} km
+      </p>
+
+      <p>
+        <strong>⏱️ Tempo estimado:</strong>
+        ${formatarTempo(
+          dados.duracaoMinutos
+        )}
+      </p>
+
+      <p>
+        <strong>👥 Passageiros:</strong>
+        ${passageiros}
+      </p>
+
+      <p>
+        <strong>🔄 Retorno:</strong>
+        ${
+          retorno === "sim"
+            ? "Sim"
+            : "Não"
+        }
+      </p>
+
+      <p>
+        <strong>🗓️ Fim de semana:</strong>
+        ${
+          fimSemana === "sim"
+            ? "Sim (+10%)"
+            : "Não"
+        }
+      </p>
+
+      <p>
+        <strong>💰 Valor por km:</strong>
+        R$
+        ${formatarMoeda(precoKm)}
+      </p>
+
+      <div class="valor">
+
+        R$
+        ${formatarMoeda(valor)}
+
+      </div>
 
 
-        <div class="detalhes">
-
-            <p>
-                📍 ${origem}
-            </p>
-
-            <p>
-                🏁 ${destino}
-            </p>
-
-            <p>
-                📏 ${distanciaTotal} km
-            </p>
-
-            <p>
-                👥 ${passageiros} passageiro(s)
-            </p>
-
-            <p>
-                🔄 Retorno:
-                ${retorno === "sim" ? "Sim" : "Não"}
-            </p>
-
-            <p>
-                🗓️ Fim de semana:
-                ${fimSemana === "sim" ? "Sim" : "Não"}
-            </p>
-
-        </div>
-
-
-        <p class="observacao">
-
-            * Valor estimado.
-            Pedágios são cobrados separadamente.
-            O valor final deve ser confirmado pelo motorista.
-
-        </p>
-
-
-        <a
-            href="#"
-            id="whatsappOrcamento"
-            class="btn-whatsapp-orcamento"
-            target="_blank"
-        >
-
-            💬 Solicitar este orçamento pelo WhatsApp
-
-        </a>
+      <a
+        href="#"
+        class="btn-whatsapp"
+        id="btnWhatsApp"
+      >
+        💬 SOLICITAR PELO WHATSAPP
+      </a>
 
     `;
 
 
-    // =========================
+    // ======================================
     // WHATSAPP
-    // =========================
+    // ======================================
 
-    const mensagem =
-
-        `Olá! Gostaria de solicitar um orçamento.
-
-📍 Saída: ${origem}
-
-🏁 Destino: ${destino}
-
-📏 Distância: ${distanciaTotal} km
-
-🗓️ Fim de semana: ${fimSemana === "sim" ? "Sim" : "Não"}
-
-🔄 Retorno: ${retorno === "sim" ? "Sim" : "Não"}
-
-👥 Passageiros: ${passageiros}
-
-💰 Valor estimado: ${valorFormatado}`;
+    const telefone =
+      "5511964650645";
 
 
-    const numeroWhatsApp =
-        "5511964650645";
+    const mensagem = `
+
+Olá! Gostaria de solicitar um orçamento.
+
+📍 Origem:
+${origem}
+
+🏁 Destino:
+${destino}
+
+📏 Distância:
+${distancia.toFixed(1)} km
+
+👥 Passageiros:
+${passageiros}
+
+🔄 Retorno:
+${retorno === "sim" ? "Sim" : "Não"}
+
+🗓️ Fim de semana:
+${fimSemana === "sim" ? "Sim" : "Não"}
+
+💰 Valor estimado:
+R$ ${formatarMoeda(valor)}
+
+`;
 
 
-    const linkWhatsApp =
-
-        `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+    const whatsappURL =
+      "https://wa.me/" +
+      telefone +
+      "?text=" +
+      encodeURIComponent(
+        mensagem
+      );
 
 
     document
-        .getElementById("whatsappOrcamento")
-        .href = linkWhatsApp;
+      .getElementById("btnWhatsApp")
+      .href = whatsappURL;
+
+
+  } catch (erro) {
+
+    console.error(
+      "Erro:",
+      erro
+    );
+
+
+    resultado.innerHTML = `
+
+      <h3>
+        ❌ Não foi possível calcular
+      </h3>
+
+      <p>
+        Confira se os endereços
+        foram digitados corretamente
+        e tente novamente.
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+// ==========================================
+// TABELA DE PREÇOS
+// ==========================================
+
+function calcularPrecoKm(
+  distancia
+) {
+
+  if (distancia <= 10) {
+
+    return 3.50;
+
+  }
+
+
+  if (distancia <= 20) {
+
+    return 3.30;
+
+  }
+
+
+  if (distancia <= 40) {
+
+    return 3.10;
+
+  }
+
+
+  if (distancia <= 60) {
+
+    return 2.90;
+
+  }
+
+
+  if (distancia <= 100) {
+
+    return 2.70;
+
+  }
+
+
+  if (distancia <= 150) {
+
+    return 2.60;
+
+  }
+
+
+  if (distancia <= 200) {
+
+    return 2.50;
+
+  }
+
+
+  return 2.40;
+
+}
+
+
+// ==========================================
+// FORMATAR TEMPO
+// ==========================================
+
+function formatarTempo(
+  minutos
+) {
+
+  const horas =
+    Math.floor(
+      minutos / 60
+    );
+
+
+  const minutosRestantes =
+    Math.round(
+      minutos % 60
+    );
+
+
+  if (horas === 0) {
+
+    return (
+      minutosRestantes +
+      " minutos"
+    );
+
+  }
+
+
+  return (
+    horas +
+    "h " +
+    minutosRestantes +
+    "min"
+  );
+
+}
+
+
+// ==========================================
+// FORMATAR MOEDA
+// ==========================================
+
+function formatarMoeda(
+  valor
+) {
+
+  return Number(valor)
+    .toFixed(2)
+    .replace(".", ",");
+
+}
+
+
+// ==========================================
+// SEGURANÇA
+// ==========================================
+
+function escaparHTML(
+  texto
+) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent = texto;
+
+  return div.innerHTML;
 
 }
