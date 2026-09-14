@@ -2,574 +2,392 @@
 <html lang="pt-BR">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+  <title>SEU UBER | Transporte Particular</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Seu Uber</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+  <!-- CABEÇALHO -->
 
-    <!-- =========================
-         CAPA DO SITE
-    ========================== -->
+  <header class="hero">
 
-    <header class="hero">
+    <div class="hero-overlay">
 
-        <div class="hero-content">
+      <h1>🚗 SEU UBER</h1>
 
-            <h1>SEU UBER</h1>
+      <p>
+        Transporte particular com conforto,
+        segurança e praticidade.
+      </p>
+
+      <a href="#orcamento" class="btn-principal">
+        Calcular orçamento
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ORÇAMENTO -->
+
+  <section id="orcamento" class="orcamento">
+
+    <div class="container">
+
+      <h2>Calcule seu orçamento</h2>
+
+      <p class="subtitulo">
+        Informe os locais da viagem e veja uma estimativa do valor.
+      </p>
+
+
+      <div class="formulario">
+
+        <!-- ORIGEM -->
+
+        <div class="campo">
+
+          <label for="origem">
+            📍 Destino inicial
+          </label>
+
+          <input
+            type="text"
+            id="origem"
+            placeholder="Rua, número, cidade"
+            autocomplete="street-address"
+          >
+
+        </div>
+
+
+        <!-- DESTINO -->
+
+        <div class="campo">
+
+          <label for="destino">
+            🏁 Destino final
+          </label>
+
+          <input
+            type="text"
+            id="destino"
+            placeholder="Rua, número, cidade"
+            autocomplete="street-address"
+          >
+
+        </div>
+
+
+        <!-- PASSAGEIROS -->
+
+        <div class="campo">
+
+          <label for="passageiros">
+            👥 Passageiros
+          </label>
+
+          <input
+            type="number"
+            id="passageiros"
+            min="1"
+            max="6"
+            value="1"
+          >
+
+        </div>
+
+
+        <!-- FIM DE SEMANA -->
+
+        <div class="campo">
+
+          <label for="fimSemana">
+            🗓️ É fim de semana?
+          </label>
+
+          <select id="fimSemana">
+
+            <option value="nao">
+              Não
+            </option>
+
+            <option value="sim">
+              Sim
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- RETORNO -->
+
+        <div class="campo">
+
+          <label for="retorno">
+            🔄 Precisa de retorno?
+          </label>
+
+          <select id="retorno">
+
+            <option value="nao">
+              Não
+            </option>
+
+            <option value="sim">
+              Sim
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- BOTÃO -->
+
+        <button
+          type="button"
+          class="btn-calcular"
+          onclick="calcularOrcamento()"
+        >
+          CALCULAR ORÇAMENTO
+        </button>
+
+      </div>
+
+
+      <!-- RESULTADO -->
+
+      <div
+        id="resultado"
+        class="resultado"
+      ></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LUGARES -->
+
+  <section class="lugares">
+
+    <div class="container">
+
+      <h2>📍 Lugares para visitar em São Paulo</h2>
+
+      <div class="cards">
+
+        <a
+          href="https://maps.google.com/?q=Parque+do+Ibirapuera+São+Paulo"
+          target="_blank"
+          class="card"
+        >
+
+          <h3>
+            Parque do Ibirapuera
+          </h3>
+
+          <p>
+            Maior parque urbano de São Paulo,
+            com museus, lago e muito verde.
+          </p>
+
+        </a>
+
+
+        <a
+          href="https://maps.google.com/?q=Avenida+Paulista+São+Paulo"
+          target="_blank"
+          class="card"
+        >
+
+          <h3>
+            Avenida Paulista
+          </h3>
+
+          <p>
+            Cultura, compras, restaurantes
+            e lazer no coração de São Paulo.
+          </p>
+
+        </a>
+
+
+        <a
+          href="https://maps.google.com/?q=Mercado+Municipal+de+São+Paulo"
+          target="_blank"
+          class="card"
+        >
+
+          <h3>
+            Mercado Municipal
+          </h3>
+
+          <p>
+            Um dos pontos gastronômicos
+            mais conhecidos da cidade.
+          </p>
+
+        </a>
+
+
+        <a
+          href="https://maps.google.com/?q=Bairro+da+Liberdade+São+Paulo"
+          target="_blank"
+          class="card"
+        >
+
+          <h3>
+            Bairro da Liberdade
+          </h3>
+
+          <p>
+            Cultura oriental, lojas
+            e gastronomia típica.
+          </p>
+
+        </a>
+
+
+        <a
+          href="https://maps.google.com/?q=Catedral+da+Sé+São+Paulo"
+          target="_blank"
+          class="card"
+        >
+
+          <h3>
+            Catedral da Sé
+          </h3>
+
+          <p>
+            Marco histórico e arquitetônico
+            de São Paulo.
+          </p>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CARRO E MOTORISTA -->
+
+  <section class="informacoes">
+
+    <div class="container">
+
+      <h2>🚗 Seu motorista</h2>
+
+      <div class="info-grid">
+
+
+        <!-- CARRO -->
+
+        <div class="info-card">
+
+          <img
+            src="carro.png"
+            alt="Chery Arrizo 6 Pro"
+          >
+
+          <div>
+
+            <h3>Carro</h3>
 
             <p>
-                Transporte seguro, confortável e personalizado.
+              <strong>Modelo:</strong>
+              Chery Arrizo 6 Pro
             </p>
 
-            <div class="hero-buttons">
+            <p>
+              <strong>Cor:</strong>
+              Cinza chumbo
+            </p>
 
-                <a
-                    href="tel:+5511964650645"
-                    class="btn btn-ligar"
-                >
-                    📞 Ligar agora
-                </a>
+            <p>
+              <strong>Placa:</strong>
+              GJF7C51
+            </p>
 
-
-                <a
-                    href="https://wa.me/5511964650645"
-                    target="_blank"
-                    class="btn btn-whatsapp"
-                >
-                    💬 WhatsApp
-                </a>
-
-            </div>
+          </div>
 
         </div>
 
-    </header>
 
+        <!-- MOTORISTA -->
 
+        <div class="info-card">
 
-    <!-- =========================
-         MENU
-    ========================== -->
+          <img
+            src="fabio.jpeg"
+            alt="Motorista"
+          >
 
-    <nav class="menu">
+          <div>
 
-        <a href="#orcamento">
-            💰 Orçamento
-        </a>
+            <h3>Motorista</h3>
 
-        <a href="#lugares">
-            📍 Lugares
-        </a>
+            <p>
+              <strong>Nome:</strong>
+              Fabio da Silva
+            </p>
 
-        <a href="#carro">
-            🚗 Carro
-        </a>
+            <p>
+              <strong>Telefone:</strong>
 
-        <a href="#motorista">
-            👨‍✈️ Motorista
-        </a>
+              <a
+                href="tel:+5511964650645"
+              >
+                (11) 96465-0645
+              </a>
 
-    </nav>
+            </p>
 
+            <p>
+              Motorista experiente e atencioso,
+              pronto para atendê-lo.
+            </p>
 
-
-    <!-- =========================
-         APRESENTAÇÃO
-    ========================== -->
-
-    <section class="sobre">
-
-        <h2>Seu transporte em São Paulo</h2>
-
-        <p>
-            Viaje com conforto, segurança e tranquilidade.
-            Consulte uma estimativa para sua viagem e entre
-            em contato para confirmar sua corrida.
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         ORÇAMENTO
-    ========================== -->
-
-    <section
-        class="orcamento"
-        id="orcamento"
-    >
-
-        <h2>💰 Calcule seu orçamento</h2>
-
-        <p class="subtitulo">
-
-            Preencha os dados abaixo para receber
-            uma estimativa do valor da viagem.
-
-        </p>
-
-
-        <div class="formulario">
-
-
-            <!-- ORIGEM -->
-
-            <div class="campo">
-
-                <label for="origem">
-                    📍 Endereço de saída
-                </label>
-
-                <input
-                    type="text"
-                    id="origem"
-                    placeholder="Rua, número e bairro"
-                >
-
-            </div>
-
-
-
-            <!-- DESTINO -->
-
-            <div class="campo">
-
-                <label for="destino">
-                    🏁 Endereço de destino
-                </label>
-
-                <input
-                    type="text"
-                    id="destino"
-                    placeholder="Rua, número e bairro"
-                >
-
-            </div>
-
-
-
-            <!-- DISTÂNCIA -->
-
-            <div class="campo">
-
-                <label for="distancia">
-                    📏 Distância aproximada
-                </label>
-
-                <div class="input-km">
-
-                    <input
-                        type="number"
-                        id="distancia"
-                        placeholder="Ex: 80"
-                        min="1"
-                    >
-
-                    <span>km</span>
-
-                </div>
-
-                <small>
-                    Consulte a distância pelo Google Maps
-                    e informe aqui.
-                </small>
-
-            </div>
-
-
-
-            <!-- DATA -->
-
-            <div class="campo">
-
-                <label for="data">
-                    📅 Data da viagem
-                </label>
-
-                <input
-                    type="date"
-                    id="data"
-                >
-
-            </div>
-
-
-
-            <!-- FIM DE SEMANA -->
-
-            <div class="campo">
-
-                <label for="fimSemana">
-                    🗓️ É fim de semana?
-                </label>
-
-                <select id="fimSemana">
-
-                    <option value="nao">
-                        Não
-                    </option>
-
-                    <option value="sim">
-                        Sim
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <!-- RETORNO -->
-
-            <div class="campo">
-
-                <label for="retorno">
-                    🔄 Vai precisar de retorno?
-                </label>
-
-                <select id="retorno">
-
-                    <option value="nao">
-                        Não
-                    </option>
-
-                    <option value="sim">
-                        Sim
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <!-- PASSAGEIROS -->
-
-            <div class="campo">
-
-                <label for="passageiros">
-                    👥 Passageiros
-                </label>
-
-                <input
-                    type="number"
-                    id="passageiros"
-                    min="1"
-                    max="6"
-                    value="1"
-                >
-
-            </div>
-
-
-
-            <!-- BOTÃO -->
-
-            <button
-                type="button"
-                class="btn-calcular"
-                onclick="calcularOrcamento()"
-            >
-
-                💰 Calcular orçamento
-
-            </button>
-
-
-
-            <!-- RESULTADO -->
-
-            <div
-                id="resultado"
-                class="resultado"
-            >
-
-            </div>
-
+          </div>
 
         </div>
 
-    </section>
+      </div>
 
+    </div>
 
+  </section>
 
-    <!-- =========================
-         LUGARES
-    ========================== -->
 
-    <section
-        class="section"
-        id="lugares"
-    >
+  <!-- RODAPÉ -->
 
-        <h2>📍 Lugares para visitar</h2>
+  <footer>
 
+    <p>
+      © 2026 SEU UBER - Transporte Particular
+    </p>
 
-        <div class="cards">
+    <p>
+      Atendimento pelo WhatsApp
+    </p>
 
+  </footer>
 
-            <div class="card">
 
-                <h3>Parque do Ibirapuera</h3>
+  <!-- JAVASCRIPT -->
 
-                <p>
-                    Um dos principais pontos turísticos
-                    de São Paulo.
-                </p>
-
-                <a
-                    href="https://maps.google.com/?q=Parque+do+Ibirapuera+São+Paulo"
-                    target="_blank"
-                >
-                    Ver no Maps →
-                </a>
-
-            </div>
-
-
-
-            <div class="card">
-
-                <h3>Avenida Paulista</h3>
-
-                <p>
-                    Cultura, restaurantes, comércio
-                    e lazer.
-                </p>
-
-                <a
-                    href="https://maps.google.com/?q=Avenida+Paulista+São+Paulo"
-                    target="_blank"
-                >
-                    Ver no Maps →
-                </a>
-
-            </div>
-
-
-
-            <div class="card">
-
-                <h3>Mercadão de São Paulo</h3>
-
-                <p>
-                    Um dos mercados mais tradicionais
-                    da cidade.
-                </p>
-
-                <a
-                    href="https://maps.google.com/?q=Mercado+Municipal+de+São+Paulo"
-                    target="_blank"
-                >
-                    Ver no Maps →
-                </a>
-
-            </div>
-
-
-
-            <div class="card">
-
-                <h3>Liberdade</h3>
-
-                <p>
-                    Cultura oriental, gastronomia
-                    e comércio.
-                </p>
-
-                <a
-                    href="https://maps.google.com/?q=Bairro+da+Liberdade+São+Paulo"
-                    target="_blank"
-                >
-                    Ver no Maps →
-                </a>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         CARRO
-    ========================== -->
-
-    <section
-        class="section"
-        id="carro"
-    >
-
-        <h2>🚗 Nosso carro</h2>
-
-
-        <div class="vehicle">
-
-            <img
-                src="carro.png"
-                alt="Chery Arrizo 6 Pro"
-            >
-
-
-            <div>
-
-                <h3>Chery Arrizo 6 Pro</h3>
-
-                <p>
-                    <strong>Cor:</strong>
-                    Cinza chumbo
-                </p>
-
-                <p>
-                    <strong>Placa:</strong>
-                    GJF7C51
-                </p>
-
-                <p>
-                    Veículo confortável e preparado
-                    para oferecer uma ótima experiência.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         MOTORISTA
-    ========================== -->
-
-    <section
-        class="section"
-        id="motorista"
-    >
-
-        <h2>👨‍✈️ Seu motorista</h2>
-
-
-        <div class="vehicle">
-
-            <img
-                src="fabio.jpeg"
-                alt="Motorista"
-            >
-
-
-            <div>
-
-                <h3>Fabio da Silva</h3>
-
-                <p>
-                    Motorista experiente e atencioso,
-                    pronto para atender você.
-                </p>
-
-
-                <a
-                    href="tel:+5511964650645"
-                    class="telefone"
-                >
-
-                    📞 (11) 96465-0645
-
-                </a>
-
-
-                <br><br>
-
-
-                <a
-                    href="https://wa.me/5511964650645"
-                    target="_blank"
-                    class="whatsapp-link"
-                >
-
-                    💬 Falar pelo WhatsApp
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         CHAMADA FINAL
-    ========================== -->
-
-    <section class="final">
-
-        <h2>Precisa de uma corrida?</h2>
-
-        <p>
-            Consulte seu orçamento e fale conosco.
-        </p>
-
-
-        <a
-            href="#orcamento"
-            class="btn btn-ligar"
-        >
-
-            💰 Calcular orçamento
-
-        </a>
-
-
-        <a
-            href="https://wa.me/5511964650645"
-            target="_blank"
-            class="btn btn-whatsapp"
-        >
-
-            💬 WhatsApp
-
-        </a>
-
-    </section>
-
-
-
-    <!-- =========================
-         RODAPÉ
-    ========================== -->
-
-    <footer>
-
-        <p>
-            © 2026 Seu Uber
-        </p>
-
-        <p>
-            Transporte com conforto e segurança.
-        </p>
-
-    </footer>
-
-
-
-    <!-- JAVASCRIPT -->
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
 
