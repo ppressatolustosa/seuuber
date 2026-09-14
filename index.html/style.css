@@ -1,3 +1,7 @@
+/* =========================
+   CONFIGURAÇÃO GERAL
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -11,13 +15,15 @@ html {
 
 
 body {
+
     font-family: Arial, sans-serif;
 
     background: #0d0d0d;
 
-    color: #fff;
+    color: white;
 
     line-height: 1.6;
+
 }
 
 
@@ -37,20 +43,19 @@ body {
 
     text-align: center;
 
-    position: relative;
-
     background:
         linear-gradient(
             rgba(0,0,0,0.55),
-            rgba(0,0,0,0.8)
+            rgba(0,0,0,0.85)
         ),
-        url("imagens/sao-paulo-1.jpg");
+        url("carro.png");
 
     background-size: cover;
 
     background-position: center;
 
     animation: zoom 10s infinite alternate;
+
 }
 
 
@@ -59,6 +64,7 @@ body {
     padding: 20px;
 
     animation: aparecer 1s ease;
+
 }
 
 
@@ -66,13 +72,14 @@ body {
 
     font-size: 4rem;
 
+    letter-spacing: 5px;
+
     margin-bottom: 15px;
 
-    letter-spacing: 4px;
-
     text-shadow:
-        0 0 10px #fff,
-        0 0 30px #00aaff;
+        0 0 10px white,
+        0 0 25px #00aaff;
+
 }
 
 
@@ -80,9 +87,10 @@ body {
 
     font-size: 1.2rem;
 
-    max-width: 600px;
+    color: #ddd;
 
-    margin: auto auto 25px;
+    margin-bottom: 25px;
+
 }
 
 
@@ -98,7 +106,7 @@ body {
 
     margin: 5px;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     text-decoration: none;
 
@@ -109,19 +117,21 @@ body {
 }
 
 
-.principal {
+.btn-ligar {
 
-    background: #fff;
+    background: white;
 
     color: #111;
+
 }
 
 
-.whatsapp {
+.btn-whatsapp {
 
     background: #25d366;
 
-    color: #fff;
+    color: white;
+
 }
 
 
@@ -129,7 +139,8 @@ body {
 
     transform: translateY(-4px);
 
-    box-shadow: 0 8px 20px rgba(255,255,255,0.2);
+    box-shadow:
+        0 8px 20px rgba(255,255,255,0.2);
 
 }
 
@@ -144,7 +155,7 @@ body {
 
     top: 0;
 
-    z-index: 10;
+    z-index: 100;
 
     display: flex;
 
@@ -163,7 +174,7 @@ body {
 
 .menu a {
 
-    color: #fff;
+    color: white;
 
     text-decoration: none;
 
@@ -172,6 +183,7 @@ body {
     border-radius: 8px;
 
     transition: 0.3s;
+
 }
 
 
@@ -188,13 +200,14 @@ body {
 
 .sobre {
 
-    text-align: center;
-
-    padding: 70px 20px;
-
     max-width: 800px;
 
     margin: auto;
+
+    padding: 70px 20px;
+
+    text-align: center;
+
 }
 
 
@@ -203,32 +216,271 @@ body {
     font-size: 2rem;
 
     margin-bottom: 15px;
+
 }
 
 
 .sobre p {
 
-    color: #ccc;
+    color: #bbb;
 
-    margin-bottom: 25px;
 }
 
 
-.cta {
+/* =========================
+   ORÇAMENTO
+========================= */
 
-    display: inline-block;
+.orcamento {
 
-    padding: 13px 25px;
+    max-width: 650px;
 
-    background: #fff;
+    margin: 40px auto 80px;
 
-    color: #111;
+    padding: 30px;
 
-    text-decoration: none;
+    background: #181818;
+
+    border-radius: 18px;
+
+    border: 1px solid #333;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.4);
+
+}
+
+
+.orcamento h2 {
+
+    text-align: center;
+
+    font-size: 2rem;
+
+    margin-bottom: 10px;
+
+}
+
+
+.subtitulo {
+
+    text-align: center;
+
+    color: #aaa;
+
+    margin-bottom: 30px;
+
+}
+
+
+.campo {
+
+    margin-bottom: 20px;
+
+}
+
+
+.campo label {
+
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+.campo input,
+.campo select {
+
+    width: 100%;
+
+    padding: 14px;
 
     border-radius: 8px;
 
+    border: 1px solid #444;
+
+    background: #252525;
+
+    color: white;
+
+    font-size: 16px;
+
+}
+
+
+.campo input:focus,
+.campo select:focus {
+
+    outline: none;
+
+    border-color: #25d366;
+
+}
+
+
+.input-km {
+
+    position: relative;
+
+}
+
+
+.input-km input {
+
+    padding-right: 50px;
+
+}
+
+
+.input-km span {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #aaa;
+
+}
+
+
+.campo small {
+
+    display: block;
+
+    color: #888;
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================
+   BOTÃO CALCULAR
+========================= */
+
+.btn-calcular {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #25d366;
+
+    color: white;
+
+    font-size: 17px;
+
     font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.btn-calcular:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(37,211,102,0.3);
+
+}
+
+
+/* =========================
+   RESULTADO
+========================= */
+
+.resultado {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: #0d0d0d;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    border: 1px solid #333;
+
+}
+
+
+.resultado h3 {
+
+    margin-bottom: 15px;
+
+}
+
+
+.valor-final {
+
+    font-size: 2.7rem;
+
+    font-weight: bold;
+
+    color: #25d366;
+
+    margin: 15px 0;
+
+}
+
+
+.detalhes {
+
+    color: #bbb;
+
+    font-size: 14px;
+
+}
+
+
+.observacao {
+
+    color: #888;
+
+    font-size: 12px;
+
+    margin-top: 15px;
+
+}
+
+
+.btn-whatsapp-orcamento {
+
+    display: block;
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    border-radius: 8px;
+
+    background: #25d366;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
 }
 
 
@@ -243,6 +495,7 @@ body {
     margin: auto;
 
     padding: 60px 20px;
+
 }
 
 
@@ -253,6 +506,7 @@ body {
     margin-bottom: 35px;
 
     font-size: 2rem;
+
 }
 
 
@@ -268,6 +522,7 @@ body {
         repeat(auto-fit, minmax(220px, 1fr));
 
     gap: 20px;
+
 }
 
 
@@ -283,9 +538,6 @@ body {
 
     transition: 0.3s;
 
-    opacity: 0;
-
-    animation: subir 0.8s forwards;
 }
 
 
@@ -297,12 +549,14 @@ body {
 
     box-shadow:
         0 10px 30px rgba(255,255,255,0.08);
+
 }
 
 
 .card h3 {
 
     margin-bottom: 10px;
+
 }
 
 
@@ -311,22 +565,18 @@ body {
     color: #bbb;
 
     margin-bottom: 15px;
+
 }
 
 
 .card a {
 
-    color: #fff;
+    color: white;
 
     text-decoration: none;
 
     font-weight: bold;
-}
 
-
-.card a:hover {
-
-    text-decoration: underline;
 }
 
 
@@ -342,13 +592,14 @@ body {
 
     gap: 30px;
 
-    background: #181818;
-
     padding: 30px;
+
+    background: #181818;
 
     border-radius: 15px;
 
     border: 1px solid #333;
+
 }
 
 
@@ -361,6 +612,7 @@ body {
     object-fit: cover;
 
     border-radius: 15px;
+
 }
 
 
@@ -369,14 +621,13 @@ body {
     color: #bbb;
 
     margin: 8px 0;
+
 }
 
 
 .telefone {
 
-    display: inline-block;
-
-    color: #fff;
+    color: white;
 
     font-size: 1.2rem;
 
@@ -384,7 +635,6 @@ body {
 
     text-decoration: none;
 
-    margin-top: 10px;
 }
 
 
@@ -395,11 +645,12 @@ body {
     font-weight: bold;
 
     text-decoration: none;
+
 }
 
 
 /* =========================
-   CTA FINAL
+   FINAL
 ========================= */
 
 .final {
@@ -414,6 +665,7 @@ body {
             #111,
             #222
         );
+
 }
 
 
@@ -422,14 +674,16 @@ body {
     font-size: 2.5rem;
 
     margin-bottom: 10px;
+
 }
 
 
 .final p {
 
-    color: #bbb;
+    color: #aaa;
 
     margin-bottom: 25px;
+
 }
 
 
@@ -445,7 +699,7 @@ footer {
 
     background: #050505;
 
-    color: #888;
+    color: #777;
 
 }
 
@@ -455,27 +709,6 @@ footer {
 ========================= */
 
 @keyframes aparecer {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(30px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
-}
-
-
-@keyframes subir {
 
     from {
 
@@ -519,9 +752,11 @@ footer {
 
 @media (max-width: 600px) {
 
+
     .hero {
 
         min-height: 450px;
+
     }
 
 
@@ -562,6 +797,17 @@ footer {
         width: 160px;
 
         height: 160px;
+
+    }
+
+
+    .orcamento {
+
+        margin-left: 15px;
+
+        margin-right: 15px;
+
+        padding: 20px;
 
     }
 
