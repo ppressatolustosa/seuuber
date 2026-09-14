@@ -1,5 +1,5 @@
 // ==========================================
-// CONFIGURAÇÃO
+// CONFIGURAÇÃO DO CLOUDFLARE WORKER
 // ==========================================
 
 const API_URL =
@@ -12,17 +12,23 @@ const API_URL =
 
 async function calcularOrcamento() {
 
+  // ----------------------------------------
+  // PEGAR INFORMAÇÕES DO FORMULÁRIO
+  // ----------------------------------------
+
   const origem =
     document
       .getElementById("origem")
       .value
       .trim();
 
+
   const destino =
     document
       .getElementById("destino")
       .value
       .trim();
+
 
   const passageiros =
     Number(
@@ -31,117 +37,225 @@ async function calcularOrcamento() {
         .value
     );
 
+
   const fimSemana =
     document
       .getElementById("fimSemana")
       .value;
+
 
   const retorno =
     document
       .getElementById("retorno")
       .value;
 
+
   const resultado =
-    document.getElementById("resultado");
+    document
+      .getElementById("resultado");
 
 
-  // ========================================
-  // VALIDAÇÕES
-  // ========================================
+  // ----------------------------------------
+  // VERIFICAR ORIGEM
+  // ----------------------------------------
 
   if (!origem) {
 
-    alert(
-      "Digite o destino inicial."
-    );
+    resultado.style.display = "block";
+
+    resultado.innerHTML = `
+      <h3>⚠️ Informe o destino inicial</h3>
+    `;
 
     return;
+
   }
 
+
+  // ----------------------------------------
+  // VERIFICAR DESTINO
+  // ----------------------------------------
 
   if (!destino) {
 
-    alert(
-      "Digite o destino final."
-    );
+    resultado.style.display = "block";
+
+    resultado.innerHTML = `
+      <h3>⚠️ Informe o destino final</h3>
+    `;
 
     return;
+
   }
 
 
+  // ----------------------------------------
+  // VERIFICAR PASSAGEIROS
+  // ----------------------------------------
+
   if (
-    !passageiros ||
     passageiros < 1 ||
     passageiros > 6
   ) {
 
-    alert(
-      "Informe entre 1 e 6 passageiros."
-    );
+    resultado.style.display = "block";
+
+    resultado.innerHTML = `
+      <h3>⚠️ Informe entre 1 e 6 passageiros</h3>
+    `;
 
     return;
+
   }
 
 
-  // ========================================
+  // ----------------------------------------
   // MOSTRAR CARREGANDO
-  // ========================================
+  // ----------------------------------------
 
   resultado.style.display = "block";
 
   resultado.innerHTML = `
-    <h3>🔄 Calculando...</h3>
+
+    <h3>
+      🔄 Calculando rota...
+    </h3>
 
     <p>
       Estamos calculando a distância
       entre os endereços.
     </p>
+
   `;
 
 
   try {
 
     // ======================================
-    // ENVIAR PARA CLOUDFLARE
+    // ENVIAR PARA O CLOUDFLARE
     // ======================================
+
+    console.log(
+      "Enviando para:",
+      API_URL
+    );
+
+
+    console.log(
+      "Origem:",
+      origem
+    );
+
+
+    console.log(
+      "Destino:",
+      destino
+    );
+
 
     const resposta =
-      await fetch(API_URL, {
+      await fetch(
+        API_URL,
+        {
 
-        method: "POST",
+          method: "POST",
 
-        headers: {
-          "Content-Type":
-            "application/json"
-        },
+          headers: {
 
-        body: JSON.stringify({
+            "Content-Type":
+              "application/json"
 
-          origem: origem,
+          },
 
-          destino: destino
+          body:
+            JSON.stringify({
 
-        })
+              origem:
+                origem,
 
-      });
+              destino:
+                destino
 
+            })
 
-    const dados =
-      await resposta.json();
+        }
+      );
 
 
     // ======================================
-    // VERIFICAR ERRO
+    // LER RESPOSTA
     // ======================================
 
-    if (
-      !resposta.ok ||
-      !dados.sucesso
-    ) {
+    const texto =
+      await resposta.text();
+
+
+    console.log(
+      "Status do Worker:",
+      resposta.status
+    );
+
+
+    console.log(
+      "Resposta do Worker:",
+      texto
+    );
+
+
+    // ======================================
+    // TRANSFORMAR EM JSON
+    // ======================================
+
+    let dados;
+
+
+    try {
+
+      dados =
+        JSON.parse(texto);
+
+    }
+
+    catch (erro) {
 
       throw new Error(
+        "O Worker não retornou uma resposta válida."
+      );
+
+    }
+
+
+    // ======================================
+    // VERIFICAR ERRO HTTP
+    // ======================================
+
+    if (!resposta.ok) {
+
+      throw new Error(
+
         dados.erro ||
-        "Erro ao calcular rota."
+
+        dados.detalhe ||
+
+        `Erro HTTP ${resposta.status}`
+
+      );
+
+    }
+
+
+    // ======================================
+    // VERIFICAR SUCESSO
+    // ======================================
+
+    if (!dados.sucesso) {
+
+      throw new Error(
+
+        dados.erro ||
+
+        "A rota não foi calculada."
+
       );
 
     }
@@ -161,7 +275,9 @@ async function calcularOrcamento() {
     // RETORNO
     // ======================================
 
-    if (retorno === "sim") {
+    if (
+      retorno === "sim"
+    ) {
 
       distancia =
         distancia * 2;
@@ -170,17 +286,17 @@ async function calcularOrcamento() {
 
 
     // ======================================
-    // PREÇO POR KM
+    // CALCULAR PREÇO POR KM
     // ======================================
 
-    const precoKm =
+    let precoKm =
       calcularPrecoKm(
         distancia
       );
 
 
     // ======================================
-    // VALOR BASE
+    // CALCULAR VALOR
     // ======================================
 
     let valor =
@@ -191,7 +307,9 @@ async function calcularOrcamento() {
     // VALOR MÍNIMO
     // ======================================
 
-    if (valor < 35) {
+    if (
+      valor < 35
+    ) {
 
       valor = 35;
 
@@ -199,10 +317,12 @@ async function calcularOrcamento() {
 
 
     // ======================================
-    // FIM DE SEMANA
+    // ADICIONAL FIM DE SEMANA
     // ======================================
 
-    if (fimSemana === "sim") {
+    if (
+      fimSemana === "sim"
+    ) {
 
       valor =
         valor * 1.10;
@@ -211,7 +331,7 @@ async function calcularOrcamento() {
 
 
     // ======================================
-    // ARREDONDAMENTO
+    // ARREDONDAR VALOR
     // ======================================
 
     valor =
@@ -225,38 +345,50 @@ async function calcularOrcamento() {
     resultado.innerHTML = `
 
       <h3>
-        📋 Orçamento estimado
+        ✅ Orçamento estimado
       </h3>
+
 
       <p>
         <strong>📍 Origem:</strong><br>
+
         ${escaparHTML(origem)}
       </p>
 
+
       <p>
         <strong>🏁 Destino:</strong><br>
+
         ${escaparHTML(destino)}
       </p>
 
+
       <p>
         <strong>📏 Distância:</strong>
+
         ${distancia.toFixed(1)} km
       </p>
 
+
       <p>
         <strong>⏱️ Tempo estimado:</strong>
+
         ${formatarTempo(
           dados.duracaoMinutos
         )}
       </p>
 
+
       <p>
         <strong>👥 Passageiros:</strong>
+
         ${passageiros}
       </p>
 
+
       <p>
         <strong>🔄 Retorno:</strong>
+
         ${
           retorno === "sim"
             ? "Sim"
@@ -264,8 +396,10 @@ async function calcularOrcamento() {
         }
       </p>
 
+
       <p>
         <strong>🗓️ Fim de semana:</strong>
+
         ${
           fimSemana === "sim"
             ? "Sim (+10%)"
@@ -273,11 +407,18 @@ async function calcularOrcamento() {
         }
       </p>
 
+
       <p>
         <strong>💰 Valor por km:</strong>
+
         R$
-        ${formatarMoeda(precoKm)}
+
+        ${formatarMoeda(
+          precoKm
+        )}
+
       </p>
+
 
       <div class="valor">
 
@@ -291,8 +432,11 @@ async function calcularOrcamento() {
         href="#"
         class="btn-whatsapp"
         id="btnWhatsApp"
+        target="_blank"
       >
+
         💬 SOLICITAR PELO WHATSAPP
+
       </a>
 
     `;
@@ -306,55 +450,66 @@ async function calcularOrcamento() {
       "5511964650645";
 
 
-    const mensagem = `
+    const mensagem =
 
-Olá! Gostaria de solicitar um orçamento.
+      `Olá! Gostaria de solicitar um orçamento.%0A%0A` +
 
-📍 Origem:
-${origem}
+      `📍 Origem:%0A` +
+      `${origem}%0A%0A` +
 
-🏁 Destino:
-${destino}
+      `🏁 Destino:%0A` +
+      `${destino}%0A%0A` +
 
-📏 Distância:
-${distancia.toFixed(1)} km
+      `📏 Distância:%0A` +
+      `${distancia.toFixed(1)} km%0A%0A` +
 
-👥 Passageiros:
-${passageiros}
+      `👥 Passageiros:%0A` +
+      `${passageiros}%0A%0A` +
 
-🔄 Retorno:
-${retorno === "sim" ? "Sim" : "Não"}
+      `🔄 Retorno:%0A` +
+      `${
+        retorno === "sim"
+          ? "Sim"
+          : "Não"
+      }%0A%0A` +
 
-🗓️ Fim de semana:
-${fimSemana === "sim" ? "Sim" : "Não"}
+      `🗓️ Fim de semana:%0A` +
+      `${
+        fimSemana === "sim"
+          ? "Sim"
+          : "Não"
+      }%0A%0A` +
 
-💰 Valor estimado:
-R$ ${formatarMoeda(valor)}
-
-`;
+      `💰 Valor estimado:%0A` +
+      `R$ ${formatarMoeda(valor)}`;
 
 
     const whatsappURL =
       "https://wa.me/" +
       telefone +
       "?text=" +
-      encodeURIComponent(
-        mensagem
-      );
+      mensagem;
 
 
     document
       .getElementById("btnWhatsApp")
-      .href = whatsappURL;
+      .href =
+      whatsappURL;
 
 
-  } catch (erro) {
+  }
+
+  catch (erro) {
 
     console.error(
-      "Erro:",
+      "ERRO COMPLETO:",
       erro
     );
 
+
+    // ====================================
+    // MOSTRAR ERRO REAL
+    // ====================================
 
     resultado.innerHTML = `
 
@@ -362,10 +517,16 @@ R$ ${formatarMoeda(valor)}
         ❌ Não foi possível calcular
       </h3>
 
+
       <p>
-        Confira se os endereços
-        foram digitados corretamente
-        e tente novamente.
+        <strong>Erro:</strong>
+      </p>
+
+
+      <p>
+        ${escaparHTML(
+          erro.message
+        )}
       </p>
 
     `;
@@ -383,49 +544,63 @@ function calcularPrecoKm(
   distancia
 ) {
 
-  if (distancia <= 10) {
+  if (
+    distancia <= 10
+  ) {
 
     return 3.50;
 
   }
 
 
-  if (distancia <= 20) {
+  if (
+    distancia <= 20
+  ) {
 
     return 3.30;
 
   }
 
 
-  if (distancia <= 40) {
+  if (
+    distancia <= 40
+  ) {
 
     return 3.10;
 
   }
 
 
-  if (distancia <= 60) {
+  if (
+    distancia <= 60
+  ) {
 
     return 2.90;
 
   }
 
 
-  if (distancia <= 100) {
+  if (
+    distancia <= 100
+  ) {
 
     return 2.70;
 
   }
 
 
-  if (distancia <= 150) {
+  if (
+    distancia <= 150
+  ) {
 
     return 2.60;
 
   }
 
 
-  if (distancia <= 200) {
+  if (
+    distancia <= 200
+  ) {
 
     return 2.50;
 
@@ -457,7 +632,9 @@ function formatarTempo(
     );
 
 
-  if (horas === 0) {
+  if (
+    horas === 0
+  ) {
 
     return (
       minutosRestantes +
@@ -468,10 +645,12 @@ function formatarTempo(
 
 
   return (
+
     horas +
     "h " +
     minutosRestantes +
     "min"
+
   );
 
 }
@@ -485,9 +664,14 @@ function formatarMoeda(
   valor
 ) {
 
-  return Number(valor)
+  return Number(
+    valor
+  )
     .toFixed(2)
-    .replace(".", ",");
+    .replace(
+      ".",
+      ","
+    );
 
 }
 
@@ -505,7 +689,10 @@ function escaparHTML(
       "div"
     );
 
-  div.textContent = texto;
+
+  div.textContent =
+    texto;
+
 
   return div.innerHTML;
 
